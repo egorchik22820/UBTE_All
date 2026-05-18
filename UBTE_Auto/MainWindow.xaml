@@ -1,0 +1,114 @@
+<Window x:Class="UBTE_Auto.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UBTE_Auto"
+        mc:Ignorable="d"
+        Title="УБТЭ: Автоматизация" Height="450" Width="800" ResizeMode="NoResize" Icon="/AppData/Images/icon.ico" Background="White">
+    
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Margin="8,3,0,0">
+
+            <StackPanel Margin="7,0,5,5">
+                <TextBlock Text="Поиск:" FontSize="12" FontWeight="Bold" Foreground="#333"/>
+                <TextBox x:Name="searchBox" Width="180" Height="22"/>
+            </StackPanel>
+
+            <StackPanel Margin="7,0,5,5">
+                <TextBlock Text="Фильтр:" FontSize="12" FontWeight="Bold" Foreground="#333"/>
+                <ComboBox x:Name="FilterBox" Width="180"/>
+            </StackPanel>
+
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="0"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,9,8,0">
+
+            <Button x:Name="DocumentsBtn" Content="Справочные документы" VerticalAlignment="Top" Width="210"
+                    FontWeight="DemiBold"
+                    Margin="7,0,0,7"
+                    Click="documentsBtn_Click" 
+                    Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
+                    />
+
+
+            <Button x:Name="settingsBtn" Content="Настройки" VerticalAlignment="Top" Width="150"
+                    FontWeight="DemiBold"
+                    Margin="7,0,7,7"
+                    Click="settingsBtn_Click" 
+                    Style="{StaticResource CircleButtonStyleSemiSmall}" Background="#FFE3E3E3"
+                    />
+            
+        </WrapPanel>
+
+        <!-- Основная область: ListView и кнопки справа -->
+        <Grid Grid.Row="1" Margin="15,0,8,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MaxHeight="350"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch">
+                <TextBlock Text="Программы:" Margin="0,0,0,5" FontWeight="Bold"/>
+
+                <!-- Шапка таблицы (ширина колонок согласована с DataTemplate) -->
+                <Border Background="#FFF7F7F7" BorderBrush="#E0E0E0" BorderThickness="2" CornerRadius="6,6,0,0" Padding="8,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" MinWidth="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto" MinWidth="120"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Название" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#333"/>
+                        <TextBlock Grid.Column="1" Text="Описание" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#333"/>
+                        <TextBlock Grid.Column="2" Text="Версия программы" HorizontalAlignment="Stretch" FontWeight="Bold" Foreground="#333"/>
+                    </Grid>
+                </Border>
+
+                <!-- ListView с настройками прокрутки и обрезкой текста -->
+                <ListView x:Name="listProg" MaxHeight="291"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="False"
+                  VirtualizingPanel.ScrollUnit="Pixel"
+                  SelectionMode="Single" 
+                  MouseDoubleClick="listProduct_MouseDoubleClick"
+                  ItemTemplate="{StaticResource ProgramItemTemplate}"
+                  BorderThickness="2"
+                  BorderBrush="#E0E0E0"
+                  Background="#FFF7F7F7"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                </ListView>
+            </StackPanel>
+
+            <!-- Вертикальные кнопки справа (без изменений) -->
+            <WrapPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10,19,5,0">
+
+                <Button x:Name="descriptionBtn" Content="См. полностью" Width="100" FontWeight="DemiBold" Margin="2,2,2,240" 
+                Click="descriptionBtn_Click" Style="{StaticResource CircleButtonStyleSmall}" Background="#FFE3E3E3"/>
+
+                <Button x:Name="instructionBtn" Content="Инструкция" Width="100" FontWeight="DemiBold" Margin="2,2" 
+                Click="instructionBtn_Click" Style="{StaticResource CircleButtonStyleSmall}" Background="#FFE3E3E3"/>
+                
+                <Button x:Name="aboutBtn" Content="Справка" Width="100" FontWeight="DemiBold" Margin="2,2" 
+                Click="aboutBtn_Click" Style="{StaticResource CircleButtonStyleSmall}" Background="#FFE3E3E3"/>
+
+                
+
+            </WrapPanel>
+        </Grid>
+
+
+
+    </Grid>
+</Window>
