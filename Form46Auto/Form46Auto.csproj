@@ -159,4 +159,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+	<Target Name="CopyToPrograms" AfterTargets="Build">
+		<PropertyGroup>
+			<ProgramsDir>$(SolutionDir)Programs\Form46Auto\</ProgramsDir>
+		</PropertyGroup>
+		<MakeDir Directories="$(ProgramsDir)" Condition="!Exists('$(ProgramsDir)')" />
+		<ItemGroup>
+			<FilesToCopy Include="$(OutputPath)**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(ProgramsDir)" SkipUnchangedFiles="true" />
+	</Target>
+	
 </Project>

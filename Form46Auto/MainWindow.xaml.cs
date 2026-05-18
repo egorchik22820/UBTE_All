@@ -1,4 +1,4 @@
-﻿using Form46Auto.DTO;
+using Form46Auto.DTO;
 using Form46Auto.Services;
 using Microsoft.Win32;
 using OfficeOpenXml;
@@ -19,7 +19,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
 using Path = System.IO.Path;
 
 namespace Form46Auto

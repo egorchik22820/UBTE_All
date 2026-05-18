@@ -1,0 +1,12 @@
+{
+  "IsODPU": 1,
+  "SysPU_Id": 5,
+  "Address": 8,
+  "Q_Calc": 9,
+  "dV_Calc": 10,
+  "VNR_Calc": 11,
+  "LoadType": 12,
+  "BuildingId": 13,
+  "TU_AIIS_Id": 14,
+  "StartRow": 2
+}

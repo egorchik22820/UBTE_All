@@ -1,0 +1,7 @@
+{
+  "Name": "Потери ГВС",
+  "Description": "Формирование файла по потерям ГВС",
+  "ExecutablePath": "PoteryGVS.exe",
+  "Arguments": "",
+  "WorkingDirectory": null
+}
