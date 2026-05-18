@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Form4._42Auto.Models
 {
-    public class ExportDataTable//vagina
+    public class ExportDataTable
     {
         public string CounterAgent { get; set; }
         public string CounterAgentExpenseType { get; set; }
