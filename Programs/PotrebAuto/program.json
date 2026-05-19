@@ -1,0 +1,7 @@
+{
+  "Name": "Потребители",
+  "Description": "Формирование файла по потребителям. Достает идентификатор из ссылки в адресе объекта т.д.",
+  "ExecutablePath": "PotrebAuto.exe",
+  "Arguments": "",
+  "WorkingDirectory": null
+}

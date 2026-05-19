@@ -108,7 +108,25 @@ namespace UBTE_Auto
 
         private void listProduct_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            var selected = listProg.SelectedItem as ProgramDTO;
+            if (selected == null) return;
 
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = selected.ExecutablePath,
+                    WorkingDirectory = selected.WorkingDirectory,
+                    Arguments = selected.Arguments,
+                    UseShellExecute = true
+                };
+                Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось запустить программу:\n{ex.Message}", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void descriptionBtn_Click(object sender, RoutedEventArgs e)

@@ -162,7 +162,7 @@
 
 	<Target Name="CopyToPrograms" AfterTargets="Build">
 		<PropertyGroup>
-			<ProgramsDir>$(SolutionDir)Programs\Form46Auto\</ProgramsDir>
+			<ProgramsDir>$(SolutionDir)..\Programs\Form46Auto\</ProgramsDir>
 		</PropertyGroup>
 		<MakeDir Directories="$(ProgramsDir)" Condition="!Exists('$(ProgramsDir)')" />
 		<ItemGroup>
