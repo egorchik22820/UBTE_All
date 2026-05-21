@@ -54,6 +54,30 @@ namespace PotrebAuto.Servises
 
         }
 
+        public static CellDTO TryGetIdFromIdWithBase(this CellDTO cell)
+        {
+            if (cell == null)
+                return new CellDTO { Value = noData};
+
+            if (cell.Value == null || string.IsNullOrWhiteSpace(cell.Value.ToString()))
+                return new CellDTO { Value = noData };
+
+            if (!cell.Value.ToString().Contains("|"))
+                return cell;
+
+            int lastSlashIndex = cell.Value.ToString().LastIndexOf('|');
+
+            if (lastSlashIndex >= 0 && lastSlashIndex < cell.Value.ToString().Length - 1)
+            {
+                cell.Value = cell.Value.ToString().Substring(lastSlashIndex + 1);
+                return cell;
+            }
+                
+
+            return new CellDTO { Value = noData };
+
+        }
+
         public static void InsertToCell(this ExcelRange cell, CellDTO dto)
         {
             if (dto == null)

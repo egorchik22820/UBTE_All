@@ -14,5 +14,11 @@ namespace PotrebAuto.Extensions.Filters
             return consumers.Where(x => x.TU_AIIS.Value != null)
                                 .ToList();
         }
+
+        public static Dictionary<string, ConsumersDataObject> GetFilteredDict(this List<ConsumersDataObject> consumers)
+        {
+            return consumers.Where(x => x.TU_AIIS.Value != null).GroupBy(x => x.TU_AIIS.Value)
+                                        .ToDictionary(x => x.Key.ToString(), x => x.First());
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace PotrebAuto.Windows
                 if (Validation.GetHasError(textBox))
                     return false;
 
-                if (string.IsNullOrEmpty(textBox.Text) || !int.TryParse(textBox.Text, out int value) || value < 0 || value >= 100)
+                if (string.IsNullOrEmpty(textBox.Text) || !int.TryParse(textBox.Text, out int value) || value < 0 || value >= 200)
                     return false;
             }
             return true;
@@ -77,7 +77,10 @@ namespace PotrebAuto.Windows
             string[] configPaths = {
                                         ConfigModel._Constants_ConfigPath,
                                         ConfigModel._Consumers_ConfigPath,
-                                        ConfigModel._SAC_ConfigPath
+                                        ConfigModel._Consumers_2_ConfigPath,
+                                        ConfigModel._SAC_ConfigPath,
+                                        ConfigModel._GiT_ConfigPath,
+                                        ConfigModel._Qlick_ConfigPath
                                     };
 
             foreach (string path in configPaths)
@@ -134,7 +137,20 @@ namespace PotrebAuto.Windows
                 IsValid_M1_M2_2TextBox.Text = ConfigModel.ConsumersConf.IsValid_M1_M2_2.ToString();
                 Q_engTextBox.Text = ConfigModel.ConsumersConf.Q_eng.ToString();
                 IsValid_TTextBox.Text = ConfigModel.ConsumersConf.IsValid_T.ToString();
-                
+
+                // Заполняем поля для Consumers_2 вкладки
+                Consumers_2AddressTextBox.Text = ConfigModel.Consumers_2Conf.Address.ToString();
+                Consumers_2PU_GcalTotalTextBox.Text = ConfigModel.Consumers_2Conf.PU_GcalTotal.ToString();
+                Consumers_2ZM_GcalTotalTextBox.Text = ConfigModel.Consumers_2Conf.ZM_GcalTotal.ToString();
+
+                // Заполняем поля для GiT вкладки
+                GiTCityTextBox.Text = ConfigModel.GiTConf.City.ToString();
+                GiTBuildingIdTextBox.Text = ConfigModel.GiTConf.BuildingId.ToString();
+                GiTBuildingTypeTextBox.Text = ConfigModel.GiTConf.BuildingType.ToString();
+
+                // Заполняем поля для Qlick вкладки
+                QlickGuidTextBox.Text = ConfigModel.QlickConf.Guid.ToString();
+                QlickBuildingIdTextBox.Text = ConfigModel.QlickConf.Id.ToString();
 
                 // Заполняем поля для SourcesAndConsumers вкладки
                 TU_IdTextBox.Text = ConfigModel.SACConf.TU_Id.ToString();
@@ -143,11 +159,28 @@ namespace PotrebAuto.Windows
                 // Заполняем поля для Table Settings вкладки
                 ConsumersTableRowStartTextBox.Text = ConfigModel.ConstantsConf.ConsumersTableRowStart.ToString();
                 ConsumersDataRowStartTextBox.Text = ConfigModel.ConstantsConf.ConsumersDataRowStart.ToString();
+
+                Consumers_2TableRowStartTextBox.Text = ConfigModel.ConstantsConf.Consumers_2TableRowStart.ToString();
+                Consumers_2DataRowStartTextBox.Text = ConfigModel.ConstantsConf.Consumers_2DataRowStart.ToString();
+
                 SACTableRowStartTextBox.Text = ConfigModel.ConstantsConf.SACTableRowStart.ToString();
                 SACDataRowStartTextBox.Text = ConfigModel.ConstantsConf.SACDataRowStart.ToString();
+
+                GiTTableRowStartTextBox.Text = ConfigModel.ConstantsConf.GiTTableRowStart.ToString();
+                GiTDataRowStartTextBox.Text = ConfigModel.ConstantsConf.GiTDataRowStart.ToString();
+
+                QlickDataRowStartTextBox.Text = ConfigModel.ConstantsConf.QlickDataRowStart.ToString();
+                QlickDataColStartTextBox.Text = ConfigModel.ConstantsConf.QlickDataColStart.ToString();
+
                 DatesColStartTextBox.Text = ConfigModel.ConstantsConf.DatesColStart.ToString();
                 DatesRowStartTextBox.Text = ConfigModel.ConstantsConf.DatesRowStart.ToString();
+
+                DatesRowStart_2TextBox.Text = ConfigModel.ConstantsConf.Dates_2RowStart.ToString();
+                DatesColStart_2TextBox.Text = ConfigModel.ConstantsConf.Dates_2ColStart.ToString();
+
                 DaysInMonthTextBox.Text = ConfigModel.ConstantsConf.DaysInMonth.ToString();
+
+                DaysInMonth_2TextBox.Text = ConfigModel.ConstantsConf.DaysInMonth_2.ToString();
             }
             catch (Exception ex)
             {
@@ -161,7 +194,7 @@ namespace PotrebAuto.Windows
         {
             if (!AreAllTextboxesValid())
             {
-                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 99.", "Ошибка валидации",
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -189,7 +222,7 @@ namespace PotrebAuto.Windows
         {
             if (!AreAllTextboxesValid())
             {
-                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 99.", "Ошибка валидации",
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -240,7 +273,7 @@ namespace PotrebAuto.Windows
         {
             if (!AreAllTextboxesValid())
             {
-                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 99.", "Ошибка валидации",
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -251,11 +284,30 @@ namespace PotrebAuto.Windows
                 {
                     ConsumersTableRowStart = int.Parse(ConsumersTableRowStartTextBox.Text),
                     ConsumersDataRowStart = int.Parse(ConsumersDataRowStartTextBox.Text),
+
+                    Consumers_2DataRowStart = int.Parse(Consumers_2DataRowStartTextBox.Text),
+                    Consumers_2TableRowStart = int.Parse(Consumers_2TableRowStartTextBox.Text),
+
                     SACTableRowStart = int.Parse(SACTableRowStartTextBox.Text),
                     SACDataRowStart = int.Parse(SACDataRowStartTextBox.Text),
+
+                    GiTDataRowStart = int.Parse(GiTDataRowStartTextBox.Text),
+                    GiTTableRowStart = int.Parse(GiTTableRowStartTextBox.Text),
+
+                    QlickDataRowStart = int.Parse(QlickDataRowStartTextBox.Text),
+                    QlickDataColStart = int.Parse(QlickDataColStartTextBox.Text),
+
                     DatesColStart = int.Parse(DatesColStartTextBox.Text),
                     DatesRowStart = int.Parse(DatesRowStartTextBox.Text),
-                    DaysInMonth = int.Parse(DaysInMonthTextBox.Text)
+
+                    Dates_2ColStart = int.Parse(DatesColStart_2TextBox.Text),
+                    Dates_2RowStart = int.Parse(DatesRowStart_2TextBox.Text),
+
+                    DaysInMonth = int.Parse(DaysInMonthTextBox.Text),
+
+                    DaysInMonth_2 = int.Parse(DaysInMonth_2TextBox.Text)
+
+                    
                 };
 
                 ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, constConf);
@@ -265,6 +317,89 @@ namespace PotrebAuto.Windows
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при сохранении настроек таблиц: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void GiTSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!AreAllTextboxesValid())
+            {
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                var GiTConf = new GiTConfig
+                {
+                    City = int.Parse(GiTCityTextBox.Text),
+                    BuildingId = int.Parse(GiTBuildingIdTextBox.Text),
+                    BuildingType = int.Parse(GiTBuildingTypeTextBox.Text)
+                };
+
+                ConfigModel.SaveConfig(ConfigModel._GiT_ConfigPath, GiTConf);
+                MessageBox.Show("Настройки таблиц сохранены!", "Успех",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении настроек ГиТ: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void QlickSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!AreAllTextboxesValid())
+            {
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                var QlickConf = new QlickConfig
+                {
+                    Guid = int.Parse(QlickGuidTextBox.Text),
+                    Id = int.Parse(QlickBuildingIdTextBox.Text)
+                };
+
+                ConfigModel.SaveConfig(ConfigModel._Qlick_ConfigPath, QlickConf);
+                MessageBox.Show("Настройки таблиц сохранены!", "Успех",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении настроек Qlick: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Consumers_2SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!AreAllTextboxesValid())
+            {
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                var consumers_2Config = new Consumers_2Config
+                {
+                    Address = int.Parse(Consumers_2AddressTextBox.Text),
+                    PU_GcalTotal = int.Parse(Consumers_2PU_GcalTotalTextBox.Text),
+                    ZM_GcalTotal = int.Parse(Consumers_2ZM_GcalTotalTextBox.Text)
+                };
+
+                ConfigModel.SaveConfig(ConfigModel._Consumers_2_ConfigPath, consumers_2Config);
+                MessageBox.Show("Настройки таблиц сохранены!", "Успех",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении настроек доп. файла потребителей: {ex.Message}", "Ошибка",
                               MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

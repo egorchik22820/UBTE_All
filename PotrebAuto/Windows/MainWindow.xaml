@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PotrebAuto.Windows"
         mc:Ignorable="d"
-        Title="Потребители" Height="350" Width="500" Icon="/Images/icon.ico">
+        Title="Потребители" Height="370" Width="500" Icon="/Images/icon.ico">
     <Window.Background>
         <ImageBrush TileMode="Tile" Stretch="UniformToFill" ImageSource="/Images/screen.png"/>
     </Window.Background>
@@ -40,6 +40,35 @@
             <Setter Property="BorderBrush" Value="#FFA0A0A0"/>
         </Style>
 
+        <Style x:Key="CircleButtonStyleDark" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                        CornerRadius="7"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Width="180" Height="30">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFD0D0D0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFC0C0C0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+        </Style>
+
         <Style x:Key="CircleButtonStyleSmall" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -68,6 +97,36 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="BorderBrush" Value="#FFA0A0A0"/>
         </Style>
+
+        <Style x:Key="CircleButtonStyleSemiSmall" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                        CornerRadius="7"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Width="120" Height="30">
+                            <ContentPresenter HorizontalAlignment="Center" 
+            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFD0D0D0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFC0C0C0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#FFA0A0A0"/>
+        </Style>
+        
     </Window.Resources>
     <Window.BorderBrush>
         <ImageBrush/>
@@ -81,6 +140,13 @@
         </Grid.RowDefinitions>
 
         <WrapPanel Grid.Row="0"  HorizontalAlignment="Center">
+
+            <Button x:Name="clearBtn" Content="Отчистить" VerticalAlignment="Top" Width="100"
+                    FontWeight="DemiBold"
+                    Margin="2,5"
+                    Click="clearBtn_Click" 
+                    Style="{StaticResource CircleButtonStyleSmall}" Background="#FFE3E3E3"
+                    />
 
             <Button x:Name="instructionBtn" Content="Инструкция" VerticalAlignment="Top" Width="100"
                 FontWeight="DemiBold"
@@ -100,7 +166,7 @@
 
 
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="230" Width="400" Margin="5,60,5,5">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="275" Width="450" Margin="5,60,5,5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -110,38 +176,97 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
-                    
-                    <Button x:Name="OriginalFileBtn" Content="Исходник"
-                            FontWeight="DemiBold"
-                            Click="OriginalFileBtn_Click" Margin="5" 
-                            Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
-                            />
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,7">
 
-                    <TextBlock x:Name="OriginalFileText" Margin="5" TextWrapping="Wrap"
-                               FontWeight="DemiBold"
-                               Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                               Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
-                               />
+                    <StackPanel>
+
+                        <Button x:Name="OriginalFileBtn" Content="Исходник"
+                                FontWeight="DemiBold"
+                                Click="OriginalFileBtn_Click" Margin="5" 
+                                Style="{StaticResource CircleButtonStyleDark}" Background="#FFACACAC"
+                                />
+
+                        <TextBlock x:Name="OriginalFileText" Margin="5" TextWrapping="Wrap"
+                                   FontWeight="DemiBold"
+                                   Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                   Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
+                                   />
+                    </StackPanel>
+
+                    <StackPanel>
+
+                        <Button x:Name="ConsumersAndSourcesFileBtn" Content="Источники - потребители"
+                                FontWeight="DemiBold"
+                                Click="ConsumersAndSourcesFileBtn_Click" Margin="5" 
+                                Style="{StaticResource CircleButtonStyleDark}" Background="#FFACACAC"
+                                />
+
+                        <TextBlock x:Name="ConsumersAndSourcesFileText" Margin="5" TextWrapping="Wrap"
+                                    FontWeight="DemiBold"
+                                    Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
+                                    />
+                    </StackPanel>
+
                 </StackPanel>
+                
+                
 
-                <StackPanel HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                
 
-                    <Button x:Name="ConsumersAndSourcesFileBtn" Content="Источники - потребители"
-                            FontWeight="DemiBold"
-                            Click="ConsumersAndSourcesFileBtn_Click" Margin="5" 
-                            Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
-                            />
 
-                    <TextBlock x:Name="ConsumersAndSourcesFileText" Margin="5" TextWrapping="Wrap"
-                               FontWeight="DemiBold"
-                               Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
-                               />
+                <StackPanel HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+
+
+                    <StackPanel>
+
+                        <Button x:Name="OriginalSecondFileBtn" Content="Доп. Исходник"
+                                FontWeight="DemiBold"
+                                Click="OriginalSecondFileBtn_Click" Margin="5" 
+                                Style="{StaticResource CircleButtonStyleSemiSmall}" Background="#FFE3E3E3"
+                                />
+
+                        <TextBlock x:Name="OriginalSecondFileText" Margin="5" TextWrapping="Wrap"
+                                   FontWeight="DemiBold"
+                                   Grid.Row="3" Grid.Column="0"
+                                   Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
+                                   />
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10">
+
+                        <Button x:Name="GiTFileBtn" Content="ГиТ файл"
+                                FontWeight="DemiBold"
+                                Click="GiTFileBtn_Click" Margin="5" 
+                                Style="{StaticResource CircleButtonStyleSemiSmall}" Background="#FFE3E3E3"
+                                />
+
+                        <TextBlock x:Name="GiTFileText" Margin="5" TextWrapping="Wrap"
+                                   FontWeight="DemiBold"
+                                   Grid.Row="3" Grid.Column="0"
+                                   Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
+                                   />
+                    </StackPanel>
+
+
+                    <StackPanel>
+
+                        <Button x:Name="QlickFileBtn" Content="Qlick файл"
+                                    FontWeight="DemiBold"
+                                    Click="QlickFileBtn_Click" Margin="5" 
+                                    Style="{StaticResource CircleButtonStyleSemiSmall}" Background="#FFE3E3E3"
+                                    />
+
+                        <TextBlock x:Name="QlickFileText" Margin="5" TextWrapping="Wrap"
+                                       FontWeight="DemiBold"
+                                       Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
+                                       />
+                    </StackPanel>
                 </StackPanel>
-
-                <StackPanel HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2">
+                
+                <StackPanel HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="3">
                     <TextBlock x:Name="ReadyText" Margin="0" TextWrapping="Wrap"
                                FontWeight="Bold"
                                Grid.Row="4" Grid.Column="1"

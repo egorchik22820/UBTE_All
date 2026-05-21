@@ -29,6 +29,21 @@ namespace PotrebAuto.Servises
             }
         }
 
+        public static void ExcelDataInsertExtra(string templatePath, string newFilePath,
+                                            List<ConsumersDataObject> consumers, Dictionary<string, ConsumersDataObject> consumersSecond,
+                                            Dictionary<string, QlickDataObject> QlickData, Dictionary<string, SourcesAndConsumersObject> sources)
+        {
+
+            CopyTemplate(templatePath, newFilePath);
+
+            using (var package = new ExcelPackage(new FileInfo(newFilePath)))
+            {
+                consumers.InsertDataExtra(package, templateSheetName);
+
+                package.Save();
+            }
+        }
+
         private static void CopyTemplate(string templatePath, string newFilePath)
         {
             File.Copy(templatePath, newFilePath, true);

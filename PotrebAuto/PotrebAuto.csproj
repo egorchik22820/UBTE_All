@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\egor\Desktop\потребители итог\</PublishUrl>
+    <PublishUrl>C:\Users\egor\Desktop\потребители перенос\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -69,7 +69,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus, Version=4.5.3.3, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
@@ -104,9 +104,18 @@
     <Compile Include="Configuration\ConfigModel.cs" />
     <Compile Include="Configuration\jsonModels\ConstantsConfig.cs" />
     <Compile Include="Configuration\jsonModels\ConsumersConfig.cs" />
+    <Compile Include="Configuration\jsonModels\Consumers_2Config.cs" />
+    <Compile Include="Configuration\jsonModels\GiTConfig.cs" />
+    <Compile Include="Configuration\jsonModels\QlickConfig.cs" />
     <Compile Include="Configuration\jsonModels\SACConfig.cs" />
     <Compile Include="Extensions\Filters\ConsumersFilter.cs" />
+    <Compile Include="Extensions\Filters\GiTFilter.cs" />
+    <Compile Include="Extensions\Filters\QlickFilter.cs" />
     <Compile Include="Extensions\Filters\SACFilter.cs" />
+    <Compile Include="Models\GiTDataObject.cs" />
+    <Compile Include="Models\QlickDataObject.cs" />
+    <Compile Include="Servises\ExcelReaderServices\GiTFileReaderService.cs" />
+    <Compile Include="Servises\ExcelReaderServices\QlickReaderService.cs" />
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -167,6 +176,12 @@
     <Content Include="Configuration\json\SourcesAndConsumers.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ExcelTemplates\ConsumersTemplateSecond.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Configuration\json\Consumers_2.json" />
+    <None Include="Configuration\json\GiT.json" />
+    <None Include="Configuration\json\Qlick.json" />
     <None Include="fix_encoding.bat" />
     <Content Include="Instructions\Инструкция Потребители.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
