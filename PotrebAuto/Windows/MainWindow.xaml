@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PotrebAuto.Windows"
         mc:Ignorable="d"
-        Title="Потребители" Height="370" Width="500" Icon="/Images/icon.ico">
+        Title="Потребители" Height="370" Width="500" Icon="/Images/icon.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Background>
         <ImageBrush TileMode="Tile" Stretch="UniformToFill" ImageSource="/Images/screen.png"/>
     </Window.Background>

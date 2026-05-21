@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PoteryGVS.Windows"
         mc:Ignorable="d"
-        Title="Потери ГВС" Height="330" Width="620" Icon="/Images/icon.ico" ResizeMode="NoResize">
+        Title="Потери ГВС" Height="330" Width="620" Icon="/Images/icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="CircleButtonStyle" TargetType="Button">
             <Setter Property="Template">

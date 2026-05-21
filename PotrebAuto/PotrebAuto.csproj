@@ -221,7 +221,7 @@
 
 	<Target Name="CopyToPrograms" AfterTargets="Build">
 		<PropertyGroup>
-			<ProgramsDir>$(SolutionDir)..\Programs\PotrebAuto\</ProgramsDir>
+			<ProgramsDir>$(SolutionDir)..\Programs\$(ProjectName)\</ProgramsDir>
 		</PropertyGroup>
 		<MakeDir Directories="$(ProgramsDir)" Condition="!Exists('$(ProgramsDir)')" />
 		<ItemGroup>

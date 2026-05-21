@@ -1,11 +1,11 @@
-﻿<Window x:Class="Form46Auto.MainWindow"
+<Window x:Class="Form46Auto.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Form46Auto"
         mc:Ignorable="d"
-        Title="Форма46" Height="538" Width="411" Background="#FF74DC6F" Icon="/free-icon-app-development-7491568.png" ResizeMode="NoResize">
+        Title="Форма46" Height="538" Width="411" Background="#FF74DC6F" Icon="/free-icon-app-development-7491568.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="CircleButtonStyle" TargetType="Button">

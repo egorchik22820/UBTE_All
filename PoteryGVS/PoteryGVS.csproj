@@ -258,7 +258,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="CopyToPrograms" AfterTargets="Build">
     <PropertyGroup>
-      <ProgramsDir>$(SolutionDir)..\Programs\PoteryGVS\</ProgramsDir>
+      <ProgramsDir>$(SolutionDir)..\Programs\$(ProjectName)\</ProgramsDir>
     </PropertyGroup>
     <MakeDir Directories="$(ProgramsDir)" Condition="!Exists('$(ProgramsDir)')" />
     <ItemGroup>

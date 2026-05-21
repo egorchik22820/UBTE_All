@@ -1,11 +1,11 @@
-﻿<Window x:Class="Form4._42Auto.MainWindow"
+<Window x:Class="Form4._42Auto.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Form4._42Auto"
         mc:Ignorable="d"
-        Title="Форма 4.42" Height="305" Width="455" Icon="/free-icon-app-development-7491568.ico" ResizeMode="NoResize">
+        Title="Форма 4.42" Height="305" Width="455" Icon="/free-icon-app-development-7491568.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="CircleButtonStyle" TargetType="Button">
             <Setter Property="Template">

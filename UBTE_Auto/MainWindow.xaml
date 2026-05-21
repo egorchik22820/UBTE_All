@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UBTE_Auto"
         mc:Ignorable="d"
-        Title="УБТЭ: Автоматизация" Height="450" Width="800" ResizeMode="NoResize" Icon="/AppData/Images/icon.ico" Background="White">
+        Title="УБТЭ: Автоматизация" Height="450" Width="800" ResizeMode="NoResize" Icon="/AppData/Images/icon.ico" Background="White" WindowStartupLocation="CenterScreen">
     
     
     <Grid>

@@ -50,7 +50,6 @@ namespace PotrebAuto.Configuration
         public readonly static string _SAC_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "SourcesAndConsumers.json");
         public readonly static string _GiT_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "GiT.json");
         public readonly static string _Qlick_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Qlick.json");
-        private static readonly string name;
 
 
         //Метод для загрузки всех конфигураций при старте приложения
