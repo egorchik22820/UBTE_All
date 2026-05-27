@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using UBTE_Auto.AppData.DTO;
 using UBTE_Auto.AppData.Configuration;
 using Path = System.IO.Path;
+using UBTE_Auto.Windows;
 
 namespace UBTE_Auto
 {
@@ -111,6 +112,24 @@ namespace UBTE_Auto
             var selected = listProg.SelectedItem as ProgramDTO;
             if (selected == null) return;
 
+            bool alreadyRunning = Process.GetProcesses()
+                .Any(p =>
+                {
+                    try
+                    {
+                        return p.MainModule != null &&
+                                p.MainModule.FileName.Equals(selected.ExecutablePath, StringComparison.OrdinalIgnoreCase);
+                    }
+                    catch { return false; }
+                });
+
+            if (alreadyRunning)
+            {
+                MessageBox.Show($"Программа '{selected.Name}' уже запущена.", "Информация",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             try
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo
@@ -131,7 +150,28 @@ namespace UBTE_Auto
 
         private void descriptionBtn_Click(object sender, RoutedEventArgs e)
         {
+            var selected = listProg.SelectedItem as ProgramDTO;
 
+            if (selected == null)
+            {
+                MessageBox.Show($"Выберите программу", "Предупреждение",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var descriptionWindow = Application.Current.Windows
+                .OfType<DescriptionWindow>()
+                .FirstOrDefault();
+
+            if (descriptionWindow == null)
+            {
+                descriptionWindow = new DescriptionWindow(selected);
+                descriptionWindow.Show();
+            }
+            else
+            {
+                descriptionWindow.Activate();
+            }
         }
     }
 }

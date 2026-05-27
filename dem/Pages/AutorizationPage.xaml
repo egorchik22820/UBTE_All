@@ -1,0 +1,25 @@
+<Page x:Class="dem.Pages.AutorizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:dem.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AutorizationPage">
+
+    <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Source="/Images/images (1).jpg" Width="80" Height="80"/>
+
+        <TextBlock Text="Авторизация" FontSize="20" FontWeight="SemiBold" Margin="10"/>
+
+        <TextBlock Text="Логин"/>
+        <TextBox x:Name="LoginBox" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Пароль"/>
+        <PasswordBox x:Name="PasswordBox" Margin="0,0,0,10"/>
+
+        <Button x:Name="LoginBtn" Content="Войти" Margin="0,0,0,10" Click="LoginBtn_Click"/>
+        <TextBlock x:Name="AsGuestTxtBtn" Text="Войти как гость" Foreground="Blue" HorizontalAlignment="Center"  TextDecorations="Underline" MouseDown="AsGuestTxtBtn_MouseDown"/>
+    </StackPanel>
+</Page>
