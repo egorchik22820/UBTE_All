@@ -112,16 +112,11 @@ namespace UBTE_Auto
             var selected = listProg.SelectedItem as ProgramDTO;
             if (selected == null) return;
 
-            bool alreadyRunning = Process.GetProcesses()
-                .Any(p =>
-                {
-                    try
-                    {
-                        return p.MainModule != null &&
-                                p.MainModule.FileName.Equals(selected.ExecutablePath, StringComparison.OrdinalIgnoreCase);
-                    }
-                    catch { return false; }
-                });
+            // Имя процесса = имя exe без расширения. GetProcessesByName НЕ обращается
+            // к MainModule, поэтому: нет потока Win32Exception от системных процессов,
+            // нет задержки при запуске и нет проблем на ПК с ограниченными правами.
+            string exeName = Path.GetFileNameWithoutExtension(selected.ExecutablePath);
+            bool alreadyRunning = Process.GetProcessesByName(exeName).Length > 0;
 
             if (alreadyRunning)
             {

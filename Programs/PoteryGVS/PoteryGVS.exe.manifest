@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>O9f0jcsOdThA8c3+twlOo9UPcxm9+m62KG9UnpaFWyY=</dsig:DigestValue>
+        <dsig:DigestValue>TfURRulW3xEkGgfAhYzYu5kAVDlc5fKE+LppP65+EHE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -292,6 +292,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>ThIFb2xv99BfTf2VdYautB/lY2d8V64vxDr/iqK8+XA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="program.json" size="208">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>8yQFUTtMXnTBt0Ti/uqdwuN8A9eUKj3+Q7BbcRwYyfE=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

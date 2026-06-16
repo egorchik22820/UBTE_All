@@ -338,12 +338,17 @@ namespace PotrebAuto.Windows
         {
             try
             {
-                // Путь к PDF файлу в выходной директории
-                string pdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Instructions", "Инструкция Потребители.pdf");
+                // Ищем PDF в подпапке Instructions (обычный запуск) и рядом с exe
+                // (на случай, если при копировании в Programs файл оказался в корне).
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                const string fileName = "Инструкция Потребители.pdf";
+                string pdfPath = Path.Combine(baseDir, "Instructions", fileName);
+                if (!File.Exists(pdfPath))
+                    pdfPath = Path.Combine(baseDir, fileName);
 
                 if (File.Exists(pdfPath))
                 {
-                    Process.Start(pdfPath);
+                    Process.Start(new ProcessStartInfo(pdfPath) { UseShellExecute = true });
                 }
                 else
                 {

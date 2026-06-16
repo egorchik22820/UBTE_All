@@ -141,7 +141,7 @@
 
         <WrapPanel Grid.Row="0"  HorizontalAlignment="Center">
 
-            <Button x:Name="clearBtn" Content="Отчистить" VerticalAlignment="Top" Width="100"
+            <Button x:Name="clearBtn" Content="Очистить" VerticalAlignment="Top" Width="100"
                     FontWeight="DemiBold"
                     Margin="2,5"
                     Click="clearBtn_Click" 

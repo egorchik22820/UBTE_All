@@ -217,6 +217,11 @@
   <ItemGroup>
     <Resource Include="Images\screen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="program.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
 	<Target Name="CopyToPrograms" AfterTargets="Build">
@@ -227,7 +232,7 @@
 		<ItemGroup>
 			<FilesToCopy Include="$(OutputPath)**\*.*" />
 		</ItemGroup>
-		<Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(ProgramsDir)" SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy-&gt;'$(ProgramsDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
 	</Target>
 	
 </Project>
