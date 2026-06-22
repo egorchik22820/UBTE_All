@@ -1,0 +1,19 @@
+{
+  "DocType": 4,
+  "Nomenclature": 11,
+  "Tariff": 12,
+  "CalcType": 13,
+  "NomenclatureUnit": 14,
+  "QuantityTotal": 15,
+  "HeatSourse": 26,
+  "RecalcYear": 30,
+  "LoadType": 36,
+  "Department": 38,
+  "AddressTU": 39,
+  "BuildingId": 42,
+  "BuildingAddress": 43,
+  "BuildingType": 44,
+  "SpaceType": 47,
+  "StartRow": 2,
+  "RecalcYearValue": "2025"
+}

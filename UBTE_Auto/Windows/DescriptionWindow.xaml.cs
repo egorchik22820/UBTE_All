@@ -36,5 +36,10 @@ namespace UBTE_Auto.Windows
             VersionBlock.Text = _program.Version;
             DescriptionBlock.Text = _program.Description;
         }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

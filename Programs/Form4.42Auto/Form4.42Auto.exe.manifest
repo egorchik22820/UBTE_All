@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Form4.42Auto.exe" size="221184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Form4.42Auto.exe" size="219136">
       <assemblyIdentity name="Form4.42Auto" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>drmnSqRBJ2ykxFeyYEq8WjRDZRPXv8MWYfjpSmg3ruk=</dsig:DigestValue>
+        <dsig:DigestValue>BtYq8LvDZ+AjULby7zavsm6exwL7J6yjfNbM4jlkH6o=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

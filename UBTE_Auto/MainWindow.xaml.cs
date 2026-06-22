@@ -39,18 +39,25 @@ namespace UBTE_Auto
 
         private void LoadPrograms()
         {
-            // Папка Programs находится рядом с исполняемым файлом WPF приложения
-            string programsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Programs"); // идет не в ту папку
-            if (!Directory.Exists(programsDir))
+            // Ищем папку Programs в нескольких местах: рядом с exe (вариант поставки)
+            // и на 1–3 уровня выше (запуск из bin\Debug при разработке).
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string[] candidates =
             {
-                // Если папки нет, пробуем подняться на уровень выше (на случай, если WPF.exe лежит в bin\Debug)
-                programsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Programs");
-                programsDir = Path.GetFullPath(programsDir);
-                if (!Directory.Exists(programsDir))
-                {
-                    MessageBox.Show("Папка Programs не найдена!");
-                    return;
-                }
+                Path.Combine(baseDir, "Programs"),
+                Path.GetFullPath(Path.Combine(baseDir, @"..\Programs")),
+                Path.GetFullPath(Path.Combine(baseDir, @"..\..\Programs")),
+                Path.GetFullPath(Path.Combine(baseDir, @"..\..\..\Programs")),
+            };
+            string programsDir = candidates.FirstOrDefault(Directory.Exists);
+            if (programsDir == null)
+            {
+                MessageBox.Show(
+                    "Папка Programs не найдена. Поиск выполнялся здесь:\n\n" +
+                    string.Join("\n", candidates) +
+                    "\n\nПоместите папку Programs рядом с UBTE_Auto.exe.",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
             var jsonFiles = Directory.GetFiles(programsDir, "program.json", SearchOption.AllDirectories);
@@ -167,6 +174,31 @@ namespace UBTE_Auto
             {
                 descriptionWindow.Activate();
             }
+        }
+
+        private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (listProg == null || listProg.ItemsSource == null) return;
+
+            var view = CollectionViewSource.GetDefaultView(listProg.ItemsSource);
+            if (view == null) return;
+
+            string query = searchBox.Text?.Trim();
+            if (string.IsNullOrEmpty(query))
+            {
+                // пустой запрос — показываем все программы
+                view.Filter = null;
+                return;
+            }
+
+            // фильтр по названию ИЛИ описанию, без учёта регистра
+            view.Filter = item =>
+            {
+                var p = item as ProgramDTO;
+                if (p == null) return false;
+                return (p.Name != null && p.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                    || (p.Description != null && p.Description.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0);
+            };
         }
     }
 }

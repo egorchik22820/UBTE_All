@@ -1,0 +1,26 @@
+{
+  "with_odpu": {
+    "buildingId": 2,
+    "city": 5,
+    "heatSupplyZone": 6,
+    "StartRow": 2,
+    "ztp": 17
+  },
+  "without_odpu": {
+    "buildingId": 1,
+    "city": 2,
+    "heatSupplyZone": 3,
+    "buildingType": 13,
+    "ztp": 15,
+    "StartRow": 2
+  },
+  "with_itp": {
+    "buildingId": 1,
+    "city": 2,
+    "heatSupplyZone": 3,
+    "calcType": 5,
+    "buildingType": 13,
+    "ztp": 14,
+    "StartRow": 2
+  }
+}

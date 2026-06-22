@@ -1,0 +1,7 @@
+{
+  "Name": "Форма 4.42",
+  "Description": "Формирование отчета по форме 4.42",
+  "ExecutablePath": "Form4.42Auto.exe",
+  "Arguments": "",
+  "WorkingDirectory": null
+}

@@ -1,0 +1,7 @@
+{
+  "Name": "Форма 46",
+  "Description": "Формирование отчета по форме 46",
+  "ExecutablePath": "Form46Auto.exe",
+  "Arguments": "",
+  "WorkingDirectory": null
+}

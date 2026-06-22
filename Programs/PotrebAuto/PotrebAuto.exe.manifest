@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PotrebAuto.exe" size="675328">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PotrebAuto.exe" size="661504">
       <assemblyIdentity name="PotrebAuto" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>wOqvOVuCYllbhp/wda/pPjmPFE4iR8PLWMQFTFu7gHQ=</dsig:DigestValue>
+        <dsig:DigestValue>Z9gI47SJ/Xr8CEqAaO5XrmEdomon2bzfquL8/yVtwYA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

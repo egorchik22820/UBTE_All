@@ -19,17 +19,17 @@
 
             <StackPanel Margin="7,0,5,5">
                 <TextBlock Text="Поиск:" FontSize="12" FontWeight="Bold" Foreground="#333"/>
-                <TextBox x:Name="searchBox" Width="180" Height="22"/>
+                <TextBox x:Name="searchBox" Width="180" Height="22" TextChanged="searchBox_TextChanged"/>
             </StackPanel>
 
-            <StackPanel Margin="7,0,5,5">
+            <StackPanel Margin="7,0,5,5"  Visibility="Hidden">
                 <TextBlock Text="Фильтр:" FontSize="12" FontWeight="Bold" Foreground="#333"/>
                 <ComboBox x:Name="FilterBox" Width="180"/>
             </StackPanel>
 
         </WrapPanel>
 
-        <WrapPanel Grid.Row="0"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,9,8,0">
+        <WrapPanel Grid.Row="0"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,9,8,0" Visibility="Hidden">
 
             <Button x:Name="DocumentsBtn" Content="Справочные документы" VerticalAlignment="Top" Width="210"
                     FontWeight="DemiBold"
@@ -97,10 +97,10 @@
                 <Button x:Name="descriptionBtn" Content="См. полностью" Width="100" FontWeight="DemiBold" Margin="2,2,2,240" 
                 Click="descriptionBtn_Click" Style="{StaticResource CircleButtonStyleSmall}" Background="#FFE3E3E3"/>
 
-                <Button x:Name="instructionBtn" Content="Инструкция" Width="100" FontWeight="DemiBold" Margin="2,2" 
+                <Button x:Name="instructionBtn" Content="Инструкция" Width="100" FontWeight="DemiBold" Margin="2,2" Visibility="Hidden" 
                 Click="instructionBtn_Click" Style="{StaticResource CircleButtonStyleSmall}" Background="#FFE3E3E3"/>
-                
-                <Button x:Name="aboutBtn" Content="Справка" Width="100" FontWeight="DemiBold" Margin="2,2" 
+
+                <Button x:Name="aboutBtn" Content="Справка" Width="100" FontWeight="DemiBold" Margin="2,2" Visibility="Hidden" 
                 Click="aboutBtn_Click" Style="{StaticResource CircleButtonStyleSmall}" Background="#FFE3E3E3"/>
 
                 
