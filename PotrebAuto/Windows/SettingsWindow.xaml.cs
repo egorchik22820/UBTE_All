@@ -204,6 +204,8 @@ namespace PotrebAuto.Windows
                 DaysInMonthTextBox.Text = ConfigModel.ConstantsConf.DaysInMonth.ToString();
 
                 DaysInMonth_2TextBox.Text = ConfigModel.ConstantsConf.DaysInMonth_2.ToString();
+
+                MaxExtraHeaderRowsTextBox.Text = ConfigModel.ConstantsConf.MaxExtraHeaderRows.ToString();
             }
             catch (Exception ex)
             {
@@ -387,9 +389,9 @@ namespace PotrebAuto.Windows
 
                     DaysInMonth = int.Parse(DaysInMonthTextBox.Text),
 
-                    DaysInMonth_2 = int.Parse(DaysInMonth_2TextBox.Text)
+                    DaysInMonth_2 = int.Parse(DaysInMonth_2TextBox.Text),
 
-                    
+                    MaxExtraHeaderRows = int.Parse(MaxExtraHeaderRowsTextBox.Text)
                 };
 
                 ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, constConf);

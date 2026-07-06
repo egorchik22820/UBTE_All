@@ -33,5 +33,7 @@ namespace PotrebAuto.Configuration.jsonModels
 
         public int DaysInMonth { get; set; }
         public int DaysInMonth_2 { get; set; }
+
+        public int MaxExtraHeaderRows { get; set; } = 1;
     }
 }

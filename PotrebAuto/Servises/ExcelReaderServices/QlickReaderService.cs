@@ -26,7 +26,7 @@ namespace PotrebAuto.Servises.ExcelReaderServices
 
                 var aliases = config.UseAutoDetect ? ColumnAliases.Qlick : new System.Collections.Generic.Dictionary<string, string[]>();
                 var detected = ColumnResolver.ResolveExtending(
-                    worksheet, headerRowStart, headerRowEnd, aliases);
+                    worksheet, headerRowStart, headerRowEnd, aliases, constConfig.MaxExtraHeaderRows);
 
                 int C(string field, int fallback) =>
                     ColumnResolver.GetColumnOrFallback(detected, field, fallback);

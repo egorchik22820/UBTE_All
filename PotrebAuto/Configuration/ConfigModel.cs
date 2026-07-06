@@ -58,11 +58,13 @@ namespace PotrebAuto.Configuration
 
         /// <summary>
         /// Возвращает словарь псевдонимов для указанного типа файла.
-        /// Если псевдонимы не загружены — возвращает пустой словарь
-        /// (ColumnResolver просто не найдёт ничего и использует конфиг).
+        /// ColumnAliases.json загружается один раз при первом обращении и не перечитывается
+        /// при последующих вызовах LoadAllConfigurations (псевдонимы не редактируются через UI).
         /// </summary>
         public static Dictionary<string, string[]> GetAliases(string fileType)
         {
+            if (ColumnAliasesConf.Count == 0)
+                ColumnAliasesConf = LoadConfig<Dictionary<string, Dictionary<string, string[]>>>(_ColumnAliases_ConfigPath);
             if (ColumnAliasesConf.TryGetValue(fileType, out var aliases))
                 return aliases;
             return new Dictionary<string, string[]>();
@@ -80,7 +82,7 @@ namespace PotrebAuto.Configuration
                 SACConf = LoadConfig<SACConfig>(_SAC_ConfigPath);
                 GiTConf = LoadConfig<GiTConfig>(_GiT_ConfigPath);
                 QlickConf = LoadConfig<QlickConfig>(_Qlick_ConfigPath);
-                ColumnAliasesConf = LoadConfig<Dictionary<string, Dictionary<string, string[]>>>(_ColumnAliases_ConfigPath);
+                // ColumnAliasesConf загружается лениво в GetAliases() — здесь не перечитываем
             }
             catch (Exception ex)
             {

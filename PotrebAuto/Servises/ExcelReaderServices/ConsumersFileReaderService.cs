@@ -27,7 +27,7 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 // Автоопределение столбцов по заголовкам (или пустые псевдонимы если отключено)
                 var aliases = config.UseAutoDetect ? ColumnAliases.Consumers : new System.Collections.Generic.Dictionary<string, string[]>();
                 var detected = ColumnResolver.ResolveExtending(
-                    worksheet, headerRowStart, headerRowEnd, aliases);
+                    worksheet, headerRowStart, headerRowEnd, aliases, constConfig.MaxExtraHeaderRows);
 
                 // Для каждого поля: берём auto-detected или значение из конфига
                 int C(string field, int fallback) =>
@@ -155,7 +155,7 @@ namespace PotrebAuto.Servises.ExcelReaderServices
 
                 var aliases2 = config.UseAutoDetect ? ColumnAliases.Consumers_2 : new System.Collections.Generic.Dictionary<string, string[]>();
                 var detected = ColumnResolver.ResolveExtending(
-                    worksheet, headerRowStart, headerRowEnd, aliases2);
+                    worksheet, headerRowStart, headerRowEnd, aliases2, constConfig.MaxExtraHeaderRows);
 
                 int C(string field, int fallback) =>
                     ColumnResolver.GetColumnOrFallback(detected, field, fallback);

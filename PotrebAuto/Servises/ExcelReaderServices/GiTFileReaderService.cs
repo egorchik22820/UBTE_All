@@ -36,7 +36,7 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                     int effHeaderEnd   = Math.Max(effHeaderStart, headerRowEnd);
 
                     var detected = ColumnResolver.ResolveExtending(
-                        worksheet, effHeaderStart, effHeaderEnd, ColumnAliases.GiT);
+                        worksheet, effHeaderStart, effHeaderEnd, ColumnAliases.GiT, constConfig.MaxExtraHeaderRows);
 
                     int C(string field, int fallback) =>
                         ColumnResolver.GetColumnOrFallback(detected, field, fallback);
