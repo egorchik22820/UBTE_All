@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PotrebAuto.Models;
 using PotrebAuto.Models.DTO;
 using PotrebAuto.Configuration;
@@ -37,6 +34,13 @@ namespace PotrebAuto.Extensions
             {
 
                 consumersSecond.TryGetValue(cm.TU_AIIS?.Value?.ToString(), out var secondItem);
+                if (secondItem == null)
+                {
+                    // Fallback: второй файл без гиперссылок — ищем по нормализованному тексту адреса
+                    string addrKey = ColumnResolver.Normalize(cm.Address?.Value?.ToString());
+                    if (!string.IsNullOrEmpty(addrKey))
+                        consumersSecond.TryGetValue(addrKey, out secondItem);
+                }
 
                 cm.PO_AIIS_Total_2 = new CellDTO { Value = secondItem?.PO_AIIS_Total?.Value ?? _empty };
                 cm.ColorDaysCount_2 = new CellDTO { Value = secondItem?.ColorDaysCount?.Value ?? _empty };

@@ -23,6 +23,10 @@ namespace PotrebAuto.Windows
     /// </summary>
     public partial class SettingsWindow : Window
     {
+        // Флаг: true во время LoadAllConfigurations, чтобы авто-сохранение
+        // чекбоксов не срабатывало при программной установке IsChecked.
+        private bool _loadingConfig = false;
+
         public SettingsWindow()
         {
             InitializeComponent();
@@ -36,12 +40,14 @@ namespace PotrebAuto.Windows
             LoadAllConfigurations();
         }
 
-        // Метод для проверки валидности всех TextBox'ов
+        // Метод для проверки валидности всех TextBox'ов (пропускает задизейбленные)
         private bool AreAllTextboxesValid()
         {
-            // Проверяем все TextBox'ы в окне
             foreach (var textBox in FindVisualChildren<TextBox>(this))
             {
+                // Поля в задизейбленных гридах (авто-определение включено) не валидируем
+                if (!textBox.IsEnabled) continue;
+
                 if (Validation.GetHasError(textBox))
                     return false;
 
@@ -106,10 +112,27 @@ namespace PotrebAuto.Windows
 
         private void LoadAllConfigurations()
         {
+            _loadingConfig = true;
             try
             {
                 // Загружаем все конфигурации
                 ConfigModel.LoadAllConfigurations();
+
+                // Чекбоксы автоопределения
+                ConsumersAutoDetectCheckBox.IsChecked = ConfigModel.ConsumersConf.UseAutoDetect;
+                ConsumersManualGrid.IsEnabled = !ConfigModel.ConsumersConf.UseAutoDetect;
+
+                Consumers2AutoDetectCheckBox.IsChecked = ConfigModel.Consumers_2Conf.UseAutoDetect;
+                Consumers2ManualGrid.IsEnabled = !ConfigModel.Consumers_2Conf.UseAutoDetect;
+
+                SACAutoDetectCheckBox.IsChecked = ConfigModel.SACConf.UseAutoDetect;
+                SACManualGrid.IsEnabled = !ConfigModel.SACConf.UseAutoDetect;
+
+                GiTAutoDetectCheckBox.IsChecked = ConfigModel.GiTConf.UseAutoDetect;
+                GiTManualGrid.IsEnabled = !ConfigModel.GiTConf.UseAutoDetect;
+
+                QlickAutoDetectCheckBox.IsChecked = ConfigModel.QlickConf.UseAutoDetect;
+                QlickManualGrid.IsEnabled = !ConfigModel.QlickConf.UseAutoDetect;
 
                 // Заполняем поля для ConsumersData вкладки
                 NumberTextBox.Text = ConfigModel.ConsumersConf.Number.ToString();
@@ -187,8 +210,65 @@ namespace PotrebAuto.Windows
                 MessageBox.Show($"Ошибка при загрузке конфигураций: {ex.Message}", "Ошибка",
                               MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                _loadingConfig = false;
+            }
         }
 
+
+        private void AutoDetectCheckBox_Changed(object sender, RoutedEventArgs e)
+        {
+            var cb = sender as CheckBox;
+            if (cb == null) return;
+            bool isAuto = cb.IsChecked == true;
+
+            if (cb == ConsumersAutoDetectCheckBox)
+            {
+                ConsumersManualGrid.IsEnabled = !isAuto;
+                if (!_loadingConfig)
+                {
+                    ConfigModel.ConsumersConf.UseAutoDetect = isAuto;
+                    ConfigModel.SaveConfig(ConfigModel._Consumers_ConfigPath, ConfigModel.ConsumersConf);
+                }
+            }
+            else if (cb == Consumers2AutoDetectCheckBox)
+            {
+                Consumers2ManualGrid.IsEnabled = !isAuto;
+                if (!_loadingConfig)
+                {
+                    ConfigModel.Consumers_2Conf.UseAutoDetect = isAuto;
+                    ConfigModel.SaveConfig(ConfigModel._Consumers_2_ConfigPath, ConfigModel.Consumers_2Conf);
+                }
+            }
+            else if (cb == SACAutoDetectCheckBox)
+            {
+                SACManualGrid.IsEnabled = !isAuto;
+                if (!_loadingConfig)
+                {
+                    ConfigModel.SACConf.UseAutoDetect = isAuto;
+                    ConfigModel.SaveConfig(ConfigModel._SAC_ConfigPath, ConfigModel.SACConf);
+                }
+            }
+            else if (cb == GiTAutoDetectCheckBox)
+            {
+                GiTManualGrid.IsEnabled = !isAuto;
+                if (!_loadingConfig)
+                {
+                    ConfigModel.GiTConf.UseAutoDetect = isAuto;
+                    ConfigModel.SaveConfig(ConfigModel._GiT_ConfigPath, ConfigModel.GiTConf);
+                }
+            }
+            else if (cb == QlickAutoDetectCheckBox)
+            {
+                QlickManualGrid.IsEnabled = !isAuto;
+                if (!_loadingConfig)
+                {
+                    ConfigModel.QlickConf.UseAutoDetect = isAuto;
+                    ConfigModel.SaveConfig(ConfigModel._Qlick_ConfigPath, ConfigModel.QlickConf);
+                }
+            }
+        }
 
         private void SourcesAndConsumersSaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -203,6 +283,7 @@ namespace PotrebAuto.Windows
             {
                 var sacConf = new SACConfig
                 {
+                    UseAutoDetect = SACAutoDetectCheckBox.IsChecked == true,
                     TU_Id = int.Parse(TU_IdTextBox.Text),
                     Obj_Id = int.Parse(Obj_IdTextBox.Text)
                 };
@@ -231,6 +312,7 @@ namespace PotrebAuto.Windows
             {
                 var consumersConf = new ConsumersConfig
                 {
+                    UseAutoDetect = ConsumersAutoDetectCheckBox.IsChecked == true,
                     Number = int.Parse(NumberTextBox.Text),
                     Address = int.Parse(AddressTextBox.Text),
                     Id = int.Parse(IdTextBox.Text),
@@ -333,6 +415,7 @@ namespace PotrebAuto.Windows
             {
                 var GiTConf = new GiTConfig
                 {
+                    UseAutoDetect = GiTAutoDetectCheckBox.IsChecked == true,
                     City = int.Parse(GiTCityTextBox.Text),
                     BuildingId = int.Parse(GiTBuildingIdTextBox.Text),
                     BuildingType = int.Parse(GiTBuildingTypeTextBox.Text)
@@ -361,6 +444,7 @@ namespace PotrebAuto.Windows
             {
                 var QlickConf = new QlickConfig
                 {
+                    UseAutoDetect = QlickAutoDetectCheckBox.IsChecked == true,
                     Guid = int.Parse(QlickGuidTextBox.Text),
                     Id = int.Parse(QlickBuildingIdTextBox.Text)
                 };
@@ -388,6 +472,7 @@ namespace PotrebAuto.Windows
             {
                 var consumers_2Config = new Consumers_2Config
                 {
+                    UseAutoDetect = Consumers2AutoDetectCheckBox.IsChecked == true,
                     Address = int.Parse(Consumers_2AddressTextBox.Text),
                     PU_GcalTotal = int.Parse(Consumers_2PU_GcalTotalTextBox.Text),
                     ZM_GcalTotal = int.Parse(Consumers_2ZM_GcalTotalTextBox.Text)

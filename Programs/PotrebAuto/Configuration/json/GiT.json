@@ -1,5 +1,6 @@
 {
   "City": 23,
   "BuildingId": 31,
-  "BuildingType": 32
+  "BuildingType": 23,
+  "UseAutoDetect": true
 }

@@ -24,5 +24,6 @@
   "IsValid_M1_M2_2": 23,
   "Q_eng": 24,
   "IsValid_T": 25,
-  "DaysValue": 0
+  "DaysValue": 0,
+  "UseAutoDetect": true
 }

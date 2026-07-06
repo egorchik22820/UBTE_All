@@ -272,6 +272,7 @@ namespace PotrebAuto.Windows
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
+            ReadyText.Text = "";
 
             try
             {

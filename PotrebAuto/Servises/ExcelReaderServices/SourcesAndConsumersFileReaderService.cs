@@ -1,11 +1,9 @@
+using PotrebAuto.Configuration;
 using PotrebAuto.Extensions;
 using PotrebAuto.Models;
+using PotrebAuto.Servises;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PotrebAuto.Configuration;
 
 namespace PotrebAuto.Servises.ExcelReaderServices
 {
@@ -17,35 +15,47 @@ namespace PotrebAuto.Servises.ExcelReaderServices
 
             using (var package = ExcelReaderExtensions.GetExcelPackage(filePath))
             {
-                // Получаем первый лист из книги
                 var worksheet = package.GetWorksheet(1);
-
-                // Кэшируем конфигурацию перед циклом
                 var config = ConfigModel.SACConf;
                 var constConfig = ConfigModel.ConstantsConf;
-                int startRow = constConfig.SACDataRowStart;
-                int tu_IdCol = config.TU_Id;
-                int obj_IdCol = config.Obj_Id;
 
-                // Определяем количество строк с данными
+                int startRow = constConfig.SACDataRowStart;
+                int headerRowStart = constConfig.SACTableRowStart > 0
+                    ? constConfig.SACTableRowStart : 1;
+                int headerRowEnd = startRow - 1;
+
+                var aliases = config.UseAutoDetect ? ColumnAliases.SourcesAndConsumers : new System.Collections.Generic.Dictionary<string, string[]>();
+                var detected = ColumnResolver.ResolveExtending(
+                    worksheet, headerRowStart, headerRowEnd, aliases);
+
+                int C(string field, int fallback) =>
+                    ColumnResolver.GetColumnOrFallback(detected, field, fallback);
+
+                int tu_IdCol  = C("TU_Id",  config.TU_Id);
+                int obj_IdCol = C("Obj_Id", config.Obj_Id);
+
+                if (config.UseAutoDetect)
+                {
+                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, new (string, string)[] {
+                        ("TU_Id",  "Идентификатор точки учёта"),
+                        ("Obj_Id", "Идентификатор объекта"),
+                    });
+                }
+
                 int rowCount = worksheet.Dimension.Rows;
 
                 for (int row = startRow; row <= rowCount; row++)
                 {
                     try
                     {
-                        if (worksheet.IsEmptyRow(row))/////////
+                        if (worksheet.IsEmptyRow(row))
                             break;
 
-                        var data = new SourcesAndConsumersObject
+                        result.Add(new SourcesAndConsumersObject
                         {
-
-                            TU_Id = worksheet.SafeGetCellValue(row, tu_IdCol),
-                            Obj_Id = worksheet.SafeGetCellValue(row, obj_IdCol)
-
-                        };
-
-                        result.Add(data);
+                            TU_Id  = worksheet.SafeGetCellValue(row, tu_IdCol),
+                            Obj_Id = worksheet.SafeGetCellValue(row, obj_IdCol),
+                        });
                     }
                     catch (Exception ex)
                     {

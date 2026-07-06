@@ -24,7 +24,13 @@
             <!-- Вкладка ConsumersData -->
             <TabItem Header="Потребители">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FFDDEED0">
-                    <Grid Margin="10">
+                    <StackPanel Margin="10">
+                    <CheckBox x:Name="ConsumersAutoDetectCheckBox"
+                              Content="Автоопределение столбцов по заголовкам файла"
+                              FontWeight="SemiBold" Margin="0,8,0,6" FontSize="13"
+                              Checked="AutoDetectCheckBox_Changed"
+                              Unchecked="AutoDetectCheckBox_Changed"/>
+                    <Grid x:Name="ConsumersManualGrid" Margin="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -145,13 +151,20 @@
                                 Width="260" Height="30" Margin="0,10" HorizontalAlignment="Right"
                                 Click="ConsumersDataSaveButton_Click"/>
                     </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
             <!-- Вкладка Consumers_2 -->
             <TabItem Header="Потребители 2">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FFDDEED0">
-                    <Grid Margin="10">
+                    <StackPanel Margin="10">
+                    <CheckBox x:Name="Consumers2AutoDetectCheckBox"
+                              Content="Автоопределение столбцов по заголовкам файла"
+                              FontWeight="SemiBold" Margin="0,8,0,6" FontSize="13"
+                              Checked="AutoDetectCheckBox_Changed"
+                              Unchecked="AutoDetectCheckBox_Changed"/>
+                    <Grid x:Name="Consumers2ManualGrid" Margin="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -179,13 +192,20 @@
                                 Width="330" Height="30" Margin="0,10" HorizontalAlignment="Right"
                                 Click="Consumers_2SaveButton_Click"/>
                     </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
             <!-- Вкладка SourcesAndConsumers -->
             <TabItem Header="Источники - потребители">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FFDDEED0">
-                    <Grid Margin="10">
+                    <StackPanel Margin="10">
+                    <CheckBox x:Name="SACAutoDetectCheckBox"
+                              Content="Автоопределение столбцов по заголовкам файла"
+                              FontWeight="SemiBold" Margin="0,8,0,6" FontSize="13"
+                              Checked="AutoDetectCheckBox_Changed"
+                              Unchecked="AutoDetectCheckBox_Changed"/>
+                    <Grid x:Name="SACManualGrid" Margin="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -208,6 +228,7 @@
                                 Width="330" Height="30" Margin="0,10" HorizontalAlignment="Right"
                                 Click="SourcesAndConsumersSaveButton_Click"/>
                     </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
@@ -305,7 +326,13 @@
             <!-- Вкладка GiT -->
             <TabItem Header="ГиТ">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FFDDEED0">
-                    <Grid Margin="10">
+                    <StackPanel Margin="10">
+                    <CheckBox x:Name="GiTAutoDetectCheckBox"
+                              Content="Автоопределение столбцов по заголовкам файла"
+                              FontWeight="SemiBold" Margin="0,8,0,6" FontSize="13"
+                              Checked="AutoDetectCheckBox_Changed"
+                              Unchecked="AutoDetectCheckBox_Changed"/>
+                    <Grid x:Name="GiTManualGrid" Margin="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -332,13 +359,20 @@
                                 Width="330" Height="30" Margin="0,10" HorizontalAlignment="Right"
                                 Click="GiTSaveButton_Click"/>
                     </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
             <!-- Вкладка Qlick -->
             <TabItem Header="Qlick">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FFDDEED0">
-                    <Grid Margin="10">
+                    <StackPanel Margin="10">
+                    <CheckBox x:Name="QlickAutoDetectCheckBox"
+                              Content="Автоопределение столбцов по заголовкам файла"
+                              FontWeight="SemiBold" Margin="0,8,0,6" FontSize="13"
+                              Checked="AutoDetectCheckBox_Changed"
+                              Unchecked="AutoDetectCheckBox_Changed"/>
+                    <Grid x:Name="QlickManualGrid" Margin="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -361,6 +395,7 @@
                     Width="330" Height="30" Margin="0,10" HorizontalAlignment="Right"
                     Click="QlickSaveButton_Click"/>
                     </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

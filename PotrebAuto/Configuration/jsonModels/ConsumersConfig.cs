@@ -34,5 +34,6 @@ namespace PotrebAuto.Configuration.jsonModels
         public int Q_eng { get; set; }
         public int IsValid_T { get; set; }
         public int DaysValue { get; set; }
+        public bool UseAutoDetect { get; set; } = true;
     }
 }

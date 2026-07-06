@@ -133,6 +133,8 @@
     <Compile Include="Models\ConsumersDataObject.cs" />
     <Compile Include="Models\DTO\CellDTO.cs" />
     <Compile Include="Models\SourcesAndConsumersObject.cs" />
+    <Compile Include="Servises\ColumnAliases.cs" />
+    <Compile Include="Servises\ColumnResolver.cs" />
     <Compile Include="Servises\DataServices.cs" />
     <Compile Include="Servises\ExcelInsertService.cs" />
     <Compile Include="Servises\ExcelReaderServices\ConsumersFileReaderService.cs" />
@@ -165,6 +167,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="ExcelTemplates\ConsumersTemplate.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configuration\json\ColumnAliases.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Configuration\json\Consumers.json">

@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="PotrebAuto.exe.manifest" size="9709">
+    <dependentAssembly dependencyType="install" codebase="PotrebAuto.exe.manifest" size="10124">
       <assemblyIdentity name="PotrebAuto.exe" version="1.0.1.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7LQGgX8VAITa2TppUmq6q5FedBztfMHh8ysss6egmqw=</dsig:DigestValue>
+        <dsig:DigestValue>nphr54zPdxDf+1J7t/zn/8KzL+tbAvmi0DT/YJG0xII=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

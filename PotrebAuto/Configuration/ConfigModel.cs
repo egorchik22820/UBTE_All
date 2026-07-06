@@ -42,6 +42,10 @@ namespace PotrebAuto.Configuration
         public static GiTConfig GiTConf { get; set; } = new GiTConfig();
         public static QlickConfig QlickConf { get; set; } = new QlickConfig();
 
+        // Псевдонимы заголовков столбцов: тип файла → (поле → список вариантов названия)
+        public static Dictionary<string, Dictionary<string, string[]>> ColumnAliasesConf { get; set; }
+            = new Dictionary<string, Dictionary<string, string[]>>();
+
 
         // пути к исходным json в проекте
         public readonly static string _Constants_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Constants.json");
@@ -50,6 +54,19 @@ namespace PotrebAuto.Configuration
         public readonly static string _SAC_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "SourcesAndConsumers.json");
         public readonly static string _GiT_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "GiT.json");
         public readonly static string _Qlick_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Qlick.json");
+        public readonly static string _ColumnAliases_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "ColumnAliases.json");
+
+        /// <summary>
+        /// Возвращает словарь псевдонимов для указанного типа файла.
+        /// Если псевдонимы не загружены — возвращает пустой словарь
+        /// (ColumnResolver просто не найдёт ничего и использует конфиг).
+        /// </summary>
+        public static Dictionary<string, string[]> GetAliases(string fileType)
+        {
+            if (ColumnAliasesConf.TryGetValue(fileType, out var aliases))
+                return aliases;
+            return new Dictionary<string, string[]>();
+        }
 
 
         //Метод для загрузки всех конфигураций при старте приложения
@@ -63,6 +80,7 @@ namespace PotrebAuto.Configuration
                 SACConf = LoadConfig<SACConfig>(_SAC_ConfigPath);
                 GiTConf = LoadConfig<GiTConfig>(_GiT_ConfigPath);
                 QlickConf = LoadConfig<QlickConfig>(_Qlick_ConfigPath);
+                ColumnAliasesConf = LoadConfig<Dictionary<string, Dictionary<string, string[]>>>(_ColumnAliases_ConfigPath);
             }
             catch (Exception ex)
             {

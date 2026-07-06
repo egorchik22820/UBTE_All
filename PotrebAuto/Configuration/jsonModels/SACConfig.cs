@@ -10,5 +10,6 @@ namespace PotrebAuto.Configuration.jsonModels
     {
         public int TU_Id { get; set; }
         public int Obj_Id { get; set; }
+        public bool UseAutoDetect { get; set; } = true;
     }
 }

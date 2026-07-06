@@ -11,5 +11,6 @@ namespace PotrebAuto.Configuration.jsonModels
         public int City { get; set; }
         public int BuildingId { get; set; }
         public int BuildingType { get; set; }
+        public bool UseAutoDetect { get; set; } = true;
     }
 }

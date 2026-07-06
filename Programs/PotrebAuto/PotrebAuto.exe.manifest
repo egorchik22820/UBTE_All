@@ -67,42 +67,51 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PotrebAuto.exe" size="661504">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PotrebAuto.exe" size="689152">
       <assemblyIdentity name="PotrebAuto" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Z9gI47SJ/Xr8CEqAaO5XrmEdomon2bzfquL8/yVtwYA=</dsig:DigestValue>
+        <dsig:DigestValue>oNBAAbfcJIIuF0BgeV0XvautaP8/mGIcdTPJb01pa5M=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Configuration\json\ColumnAliases.json" size="8044">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>JpSXd8qVPLYVD0kWpibN1rr8/hkH76uPVTo7DHRneDk=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Configuration\json\Constants.json" size="433">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Uw4E0Dk5vhHroPFexEQQpXGSfmHBY1A+KH0Qb2gt38U=</dsig:DigestValue>
+      <dsig:DigestValue>lSd4mU0kbi5jGgB9x5eL7SEB9eKADvcjenlTb9N0Mcs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Configuration\json\Consumers.json" size="594">
+  <file name="Configuration\json\Consumers.json" size="620">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>t9jnGrFnFQ5ZDTgX0veYDbuAYfMgote66Q+Z56HKIW8=</dsig:DigestValue>
+      <dsig:DigestValue>zxas9KP49b1q1OvWLmKhMfGucC8pYOrRKMwBbwgVANM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Configuration\json\SourcesAndConsumers.json" size="36">
+  <file name="Configuration\json\SourcesAndConsumers.json" size="62">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>8WMuQ+5gBQgsXwyiUi3VOPR/7UCuktd8hwmN5TfbTc8=</dsig:DigestValue>
+      <dsig:DigestValue>cE5mpOo3r9XuSGL+Nc2eGHlLE9BRaQ48wwn/aDMp+jg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="ExcelTemplates\ConsumersTemplate.xlsx" size="153116">

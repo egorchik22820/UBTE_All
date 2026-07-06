@@ -1,6 +1,7 @@
 {
   "Address": 2,
-  "PU_GcalTotal": 15,
-  "ZM_GcalTotal": 17,
-  "DaysValue": 0
+  "PU_GcalTotal": 4,
+  "ZM_GcalTotal": 6,
+  "DaysValue": 0,
+  "UseAutoDetect": true
 }

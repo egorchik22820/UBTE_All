@@ -12,5 +12,6 @@ namespace PotrebAuto.Configuration.jsonModels
         public int PU_GcalTotal { get; set; }
         public int ZM_GcalTotal { get; set; }
         public int DaysValue { get; set; }
+        public bool UseAutoDetect { get; set; } = true;
     }
 }
