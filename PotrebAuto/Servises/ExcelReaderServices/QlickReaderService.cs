@@ -19,10 +19,18 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 var config = ConfigModel.QlickConf;
                 var constConfig = ConfigModel.ConstantsConf;
 
-                // Заголовок в строке 1, данные со строки QlickDataRowStart
                 int startRow = constConfig.QlickDataRowStart;
                 int headerRowStart = 1;
                 int headerRowEnd = startRow - 1;
+
+                var extraWarnings = new System.Collections.Generic.List<string>();
+                if (constConfig.UseAutoDetectTableStructure)
+                {
+                    var (detHeaderEnd, detDataStart) = ColumnResolver.DetectTableStructure(
+                        worksheet, ColumnAliases.Qlick, Math.Max(constConfig.MaxExtraHeaderRows + 3, 8));
+                    if (detDataStart > 0) { headerRowEnd = detHeaderEnd; startRow = detDataStart; }
+                    else extraWarnings.Add("Структура таблицы (начало заголовков и данных)");
+                }
 
                 var aliases = config.UseAutoDetect ? ColumnAliases.Qlick : new System.Collections.Generic.Dictionary<string, string[]>();
                 var detected = ColumnResolver.ResolveExtending(
@@ -34,12 +42,13 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 int buildingGuidCol = C("Guid", config.Guid);
                 int buildingIdCol   = C("Id",   config.Id);
 
-                if (config.UseAutoDetect)
+                if (config.UseAutoDetect || constConfig.UseAutoDetectTableStructure)
                 {
-                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, new (string, string)[] {
+                    var colFields = config.UseAutoDetect ? new (string, string)[] {
                         ("Guid", "Идентификатор АИИС"),
                         ("Id",   "Код строения"),
-                    });
+                    } : new (string, string)[0];
+                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, colFields, extraWarnings.ToArray());
                 }
 
                 int rowCount = worksheet.Dimension.Rows;

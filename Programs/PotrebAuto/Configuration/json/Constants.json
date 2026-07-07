@@ -15,5 +15,6 @@
   "Dates_2RowStart": 1,
   "DaysInMonth": 31,
   "DaysInMonth_2": 31,
-  "MaxExtraHeaderRows": 3
+  "MaxExtraHeaderRows": 3,
+  "UseAutoDetectTableStructure": true
 }

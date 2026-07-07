@@ -14,6 +14,7 @@ namespace PotrebAuto.Servises
     public static class ColumnResolver
     {
         private static readonly Regex _nonAlphaNum = new Regex(@"[^\p{L}\p{N}]+", RegexOptions.Compiled);
+        private static readonly Regex _dateStringPattern = new Regex(@"^(\d{1,2})\.\d{1,2}$", RegexOptions.Compiled);
 
         /// <summary>
         /// Нормализует строку для сравнения: нижний регистр, убирает знаки
@@ -132,27 +133,35 @@ namespace PotrebAuto.Servises
         }
 
         /// <summary>
-        /// Находит столбец, с которого начинается числовая последовательность 1, 2, 3...
-        /// (дни месяца в строке заголовка). Возвращает -1 если не найдено.
+        /// Находит столбец и строку, с которых начинается последовательность дней месяца.
+        /// Поддерживает числа (1, 2, 3) и строки вида "Д.М" / "ДД.ММ" (например "01.9", "1.10").
+        /// Возвращает (Col, Row) или (-1, -1) если не найдено.
         /// </summary>
-        public static int DetectDatesStart(ExcelWorksheet worksheet, int headerRowStart, int headerRowEnd)
+        public static (int Col, int Row) DetectDatesStart(ExcelWorksheet worksheet, int headerRowStart, int headerRowEnd)
         {
-            if (worksheet.Dimension == null) return -1;
+            if (worksheet.Dimension == null) return (-1, -1);
             int maxCol = worksheet.Dimension.End.Column;
 
             for (int row = headerRowStart; row <= headerRowEnd; row++)
             {
+                // Числовая последовательность 1, 2, 3
                 for (int col = 1; col <= maxCol - 2; col++)
                 {
-                    object v1 = worksheet.Cells[row, col]?.Value;
-                    object v2 = worksheet.Cells[row, col + 1]?.Value;
-                    object v3 = worksheet.Cells[row, col + 2]?.Value;
+                    if (IsValue(worksheet.Cells[row, col]?.Value, 1) &&
+                        IsValue(worksheet.Cells[row, col + 1]?.Value, 2) &&
+                        IsValue(worksheet.Cells[row, col + 2]?.Value, 3))
+                        return (col, row);
+                }
 
-                    if (IsValue(v1, 1) && IsValue(v2, 2) && IsValue(v3, 3))
-                        return col;
+                // Строки вида "Д.М", "ДД.М", "Д.ММ", "ДД.ММ" (например "01.9", "1.10")
+                for (int col = 1; col <= maxCol - 1; col++)
+                {
+                    if (TryGetDayFromDateString(worksheet.Cells[row, col]?.Value) == 1 &&
+                        TryGetDayFromDateString(worksheet.Cells[row, col + 1]?.Value) == 2)
+                        return (col, row);
                 }
             }
-            return -1;
+            return (-1, -1);
         }
 
         private static bool IsValue(object cellValue, int expected)
@@ -160,6 +169,41 @@ namespace PotrebAuto.Servises
             if (cellValue == null) return false;
             if (cellValue is double d) return Math.Abs(d - expected) < 0.01;
             return int.TryParse(cellValue.ToString(), out int i) && i == expected;
+        }
+
+        private static int? TryGetDayFromDateString(object cellValue)
+        {
+            if (cellValue == null) return null;
+            var m = _dateStringPattern.Match(cellValue.ToString().Trim());
+            if (!m.Success) return null;
+            return int.TryParse(m.Groups[1].Value, out int day) && day >= 1 && day <= 31 ? day : (int?)null;
+        }
+
+        /// <summary>
+        /// Автоматически определяет границы заголовка и первую строку данных по совпадению псевдонимов.
+        /// Перебирает endRow от 1 до maxEndRow и выбирает вариант с наибольшим числом найденных полей.
+        /// Возвращает (HeaderRowEnd, DataRowStart) или (-1, -1) если ни одного поля не найдено.
+        /// </summary>
+        public static (int HeaderRowEnd, int DataRowStart) DetectTableStructure(
+            ExcelWorksheet worksheet,
+            Dictionary<string, string[]> aliases,
+            int maxEndRow = 8)
+        {
+            if (worksheet.Dimension == null || aliases == null || !aliases.Any())
+                return (-1, -1);
+
+            int bestEndRow = -1;
+            int bestFound = 0;
+
+            for (int endRow = 1; endRow <= maxEndRow; endRow++)
+            {
+                var res = Resolve(worksheet, 1, endRow, aliases);
+                int found = res.Count(kv => kv.Value > 0);
+                if (found > bestFound) { bestFound = found; bestEndRow = endRow; }
+                if (found == aliases.Count) break;
+            }
+
+            return bestFound > 0 ? (bestEndRow, bestEndRow + 1) : (-1, -1);
         }
 
         /// <summary>
@@ -211,7 +255,8 @@ namespace PotrebAuto.Servises
         public static void WarnAutoDetectMissed(
             string filePath,
             Dictionary<string, int> detected,
-            (string Field, string DisplayName)[] fields)
+            (string Field, string DisplayName)[] fields,
+            string[] additionalMissed = null)
         {
             var missed = new System.Collections.Generic.List<string>();
             foreach (var f in fields)
@@ -219,6 +264,8 @@ namespace PotrebAuto.Servises
                 int col = detected.TryGetValue(f.Field, out int c) ? c : -1;
                 if (col <= 0) missed.Add(f.DisplayName);
             }
+            if (additionalMissed != null)
+                missed.AddRange(additionalMissed);
             if (!missed.Any()) return;
 
             string fileName = System.IO.Path.GetFileName(filePath);

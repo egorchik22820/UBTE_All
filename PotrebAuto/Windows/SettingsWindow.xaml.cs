@@ -206,6 +206,9 @@ namespace PotrebAuto.Windows
                 DaysInMonth_2TextBox.Text = ConfigModel.ConstantsConf.DaysInMonth_2.ToString();
 
                 MaxExtraHeaderRowsTextBox.Text = ConfigModel.ConstantsConf.MaxExtraHeaderRows.ToString();
+
+                TableStructureAutoDetectCheckBox.IsChecked = ConfigModel.ConstantsConf.UseAutoDetectTableStructure;
+                TableStructureManualGrid.IsEnabled = !ConfigModel.ConstantsConf.UseAutoDetectTableStructure;
             }
             catch (Exception ex)
             {
@@ -218,6 +221,17 @@ namespace PotrebAuto.Windows
             }
         }
 
+
+        private void TableStructureAutoDetectCheckBox_Changed(object sender, RoutedEventArgs e)
+        {
+            bool isAuto = TableStructureAutoDetectCheckBox.IsChecked == true;
+            TableStructureManualGrid.IsEnabled = !isAuto;
+            if (!_loadingConfig)
+            {
+                ConfigModel.ConstantsConf.UseAutoDetectTableStructure = isAuto;
+                ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, ConfigModel.ConstantsConf);
+            }
+        }
 
         private void AutoDetectCheckBox_Changed(object sender, RoutedEventArgs e)
         {
@@ -366,6 +380,7 @@ namespace PotrebAuto.Windows
             {
                 var constConf = new ConstantsConfig
                 {
+                    UseAutoDetectTableStructure = TableStructureAutoDetectCheckBox.IsChecked == true,
                     ConsumersTableRowStart = int.Parse(ConsumersTableRowStartTextBox.Text),
                     ConsumersDataRowStart = int.Parse(ConsumersDataRowStartTextBox.Text),
 

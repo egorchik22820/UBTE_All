@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PotrebAuto.exe" size="689664">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PotrebAuto.exe" size="692736">
       <assemblyIdentity name="PotrebAuto" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6iR/h+roM2/epNYz6L6X9Jx/O/zEOHTDQg22sXM07M8=</dsig:DigestValue>
+        <dsig:DigestValue>vGAOjEkOliIEmddKmZX1JiHXeJCExKWhyxD1LIbyLy8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -87,13 +87,13 @@
       <dsig:DigestValue>JpSXd8qVPLYVD0kWpibN1rr8/hkH76uPVTo7DHRneDk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Configuration\json\Constants.json" size="461">
+  <file name="Configuration\json\Constants.json" size="501">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>qOp0MZj42BB/bElbIKsiSlZhJHeltclQzDKc8u2fHfI=</dsig:DigestValue>
+      <dsig:DigestValue>M6Jc4hqPsgX8e741WeFBLMIs8kGPTjogN4DN1xQtWE4=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Configuration\json\Consumers.json" size="620">

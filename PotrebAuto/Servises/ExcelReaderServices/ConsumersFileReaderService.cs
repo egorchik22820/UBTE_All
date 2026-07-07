@@ -24,6 +24,22 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 int startRow = constConfig.ConsumersDataRowStart;
                 int headerRowEnd = startRow - 1;
 
+                var extraWarnings = new System.Collections.Generic.List<string>();
+
+                if (constConfig.UseAutoDetectTableStructure)
+                {
+                    var (detHeaderEnd, detDataStart) = ColumnResolver.DetectTableStructure(
+                        worksheet, ColumnAliases.Consumers, Math.Max(constConfig.MaxExtraHeaderRows + 3, 8));
+                    if (detDataStart > 0)
+                    {
+                        headerRowStart = 1;
+                        headerRowEnd = detHeaderEnd;
+                        startRow = detDataStart;
+                    }
+                    else
+                        extraWarnings.Add("Структура таблицы (начало заголовков и данных)");
+                }
+
                 // Автоопределение столбцов по заголовкам (или пустые псевдонимы если отключено)
                 var aliases = config.UseAutoDetect ? ColumnAliases.Consumers : new System.Collections.Generic.Dictionary<string, string[]>();
                 var detected = ColumnResolver.ResolveExtending(
@@ -59,9 +75,19 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 int q_engCol                = C("Q_eng",               config.Q_eng);
                 int isValid_TCol            = C("IsValid_T",           config.IsValid_T);
 
-                if (config.UseAutoDetect)
+                // Начало столбцов с датами: пробуем авто-определить, иначе из конфига
+                int datesStartCol = constConfig.DatesColStart;
+                int startDatesRow = constConfig.DatesRowStart;
+                if (constConfig.UseAutoDetectTableStructure)
                 {
-                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, new (string, string)[] {
+                    var (detDatesCol, detDatesRow) = ColumnResolver.DetectDatesStart(worksheet, headerRowStart, headerRowEnd);
+                    if (detDatesCol > 0) { datesStartCol = detDatesCol; startDatesRow = detDatesRow; }
+                    else extraWarnings.Add("Начало столбцов с датами");
+                }
+
+                if (config.UseAutoDetect || constConfig.UseAutoDetectTableStructure)
+                {
+                    var colFields = config.UseAutoDetect ? new (string, string)[] {
                         ("Address",             "Адрес"),
                         ("Id",                  "Идентификатор"),
                         ("PU_GcalTotal",        "ПУ Всего, Гкал"),
@@ -76,16 +102,10 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                         ("IsValid_M1_M2_2",     "M1 > 2 x M2"),
                         ("Q_eng",               "Qинж"),
                         ("IsValid_T",           "Т < 0°С или Т > 150°С"),
-                    });
+                    } : new (string, string)[0];
+                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, colFields, extraWarnings.ToArray());
                 }
 
-                // Автоопределение начала колонок с датами (1, 2, 3...)
-                int datesStartCol = ColumnResolver.DetectDatesStart(
-                    worksheet, headerRowStart, headerRowEnd);
-                if (datesStartCol < 0)
-                    datesStartCol = constConfig.DatesColStart;
-
-                int startDatesRow = constConfig.DatesRowStart;
                 int rowCount = worksheet.Dimension.Rows;
 
                 if (worksheet.Cells[startDatesRow, datesStartCol].Value != null)
@@ -153,6 +173,22 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 int startRow = constConfig.Consumers_2DataRowStart;
                 int headerRowEnd = startRow - 1;
 
+                var extraWarnings2 = new System.Collections.Generic.List<string>();
+
+                if (constConfig.UseAutoDetectTableStructure)
+                {
+                    var (detHeaderEnd, detDataStart) = ColumnResolver.DetectTableStructure(
+                        worksheet, ColumnAliases.Consumers_2, Math.Max(constConfig.MaxExtraHeaderRows + 3, 8));
+                    if (detDataStart > 0)
+                    {
+                        headerRowStart = 1;
+                        headerRowEnd = detHeaderEnd;
+                        startRow = detDataStart;
+                    }
+                    else
+                        extraWarnings2.Add("Структура таблицы (начало заголовков и данных)");
+                }
+
                 var aliases2 = config.UseAutoDetect ? ColumnAliases.Consumers_2 : new System.Collections.Generic.Dictionary<string, string[]>();
                 var detected = ColumnResolver.ResolveExtending(
                     worksheet, headerRowStart, headerRowEnd, aliases2, constConfig.MaxExtraHeaderRows);
@@ -164,21 +200,25 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 int pu_GcalTotalCol = C("PU_GcalTotal", config.PU_GcalTotal);
                 int zm_GcalTotalCol = C("ZM_GcalTotal", config.ZM_GcalTotal);
 
-                if (config.UseAutoDetect)
+                // Начало столбцов с датами: пробуем авто-определить, иначе из конфига
+                int datesStartCol = constConfig.Dates_2ColStart;
+                int startDatesRow = constConfig.Dates_2RowStart;
+                if (constConfig.UseAutoDetectTableStructure)
                 {
-                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, new (string, string)[] {
+                    var (detDatesCol2, detDatesRow2) = ColumnResolver.DetectDatesStart(worksheet, headerRowStart, headerRowEnd);
+                    if (detDatesCol2 > 0) { datesStartCol = detDatesCol2; startDatesRow = detDatesRow2; }
+                    else extraWarnings2.Add("Начало столбцов с датами");
+                }
+
+                if (config.UseAutoDetect || constConfig.UseAutoDetectTableStructure)
+                {
+                    var colFields2 = config.UseAutoDetect ? new (string, string)[] {
                         ("Address",      "Адрес"),
                         ("PU_GcalTotal", "ПУ Всего, Гкал"),
                         ("ZM_GcalTotal", "ЗМ Всего, Гкал"),
-                    });
+                    } : new (string, string)[0];
+                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, colFields2, extraWarnings2.ToArray());
                 }
-
-                int datesStartCol = ColumnResolver.DetectDatesStart(
-                    worksheet, headerRowStart, headerRowEnd);
-                if (datesStartCol < 0)
-                    datesStartCol = constConfig.Dates_2ColStart;
-
-                int startDatesRow = constConfig.Dates_2RowStart;
                 int rowCount = worksheet.Dimension.Rows;
 
                 if (worksheet.Cells[startDatesRow, datesStartCol].Value != null)

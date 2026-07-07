@@ -30,11 +30,26 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 int buildingTypeCol = config.BuildingType;
                 int cityCol         = config.City;
 
+                int effHeaderStart = headerRowStart >= 1 ? headerRowStart : 1;
+                int effHeaderEnd   = Math.Max(effHeaderStart, headerRowEnd);
+                var extraWarnings = new System.Collections.Generic.List<string>();
+
+                if (constConfig.UseAutoDetectTableStructure)
+                {
+                    var (detHeaderEnd, detDataStart) = ColumnResolver.DetectTableStructure(
+                        worksheet, ColumnAliases.GiT, Math.Max(constConfig.MaxExtraHeaderRows + 3, 8));
+                    if (detDataStart > 0)
+                    {
+                        effHeaderStart = 1;
+                        effHeaderEnd = detHeaderEnd;
+                        startRow = detDataStart;
+                    }
+                    else
+                        extraWarnings.Add("Структура таблицы (начало заголовков и данных)");
+                }
+
                 if (config.UseAutoDetect)
                 {
-                    int effHeaderStart = headerRowStart >= 1 ? headerRowStart : 1;
-                    int effHeaderEnd   = Math.Max(effHeaderStart, headerRowEnd);
-
                     var detected = ColumnResolver.ResolveExtending(
                         worksheet, effHeaderStart, effHeaderEnd, ColumnAliases.GiT, constConfig.MaxExtraHeaderRows);
 
@@ -49,7 +64,14 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                         ("BuildingId",   "Код строения"),
                         ("BuildingType", "Тип здания"),
                         ("City",         "Город"),
-                    });
+                    }, extraWarnings.ToArray());
+                }
+                else if (constConfig.UseAutoDetectTableStructure && extraWarnings.Count > 0)
+                {
+                    ColumnResolver.WarnAutoDetectMissed(filePath,
+                        new System.Collections.Generic.Dictionary<string, int>(),
+                        new (string, string)[0],
+                        extraWarnings.ToArray());
                 }
 
                 int rowCount = worksheet.Dimension.Rows;

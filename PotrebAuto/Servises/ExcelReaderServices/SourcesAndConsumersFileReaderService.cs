@@ -24,6 +24,21 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                     ? constConfig.SACTableRowStart : 1;
                 int headerRowEnd = startRow - 1;
 
+                var extraWarnings = new System.Collections.Generic.List<string>();
+                if (constConfig.UseAutoDetectTableStructure)
+                {
+                    var (detHeaderEnd, detDataStart) = ColumnResolver.DetectTableStructure(
+                        worksheet, ColumnAliases.SourcesAndConsumers, Math.Max(constConfig.MaxExtraHeaderRows + 3, 8));
+                    if (detDataStart > 0)
+                    {
+                        headerRowStart = 1;
+                        headerRowEnd = detHeaderEnd;
+                        startRow = detDataStart;
+                    }
+                    else
+                        extraWarnings.Add("Структура таблицы (начало заголовков и данных)");
+                }
+
                 var aliases = config.UseAutoDetect ? ColumnAliases.SourcesAndConsumers : new System.Collections.Generic.Dictionary<string, string[]>();
                 var detected = ColumnResolver.ResolveExtending(
                     worksheet, headerRowStart, headerRowEnd, aliases, constConfig.MaxExtraHeaderRows);
@@ -34,12 +49,13 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 int tu_IdCol  = C("TU_Id",  config.TU_Id);
                 int obj_IdCol = C("Obj_Id", config.Obj_Id);
 
-                if (config.UseAutoDetect)
+                if (config.UseAutoDetect || constConfig.UseAutoDetectTableStructure)
                 {
-                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, new (string, string)[] {
+                    var colFields = config.UseAutoDetect ? new (string, string)[] {
                         ("TU_Id",  "Идентификатор точки учёта"),
                         ("Obj_Id", "Идентификатор объекта"),
-                    });
+                    } : new (string, string)[0];
+                    ColumnResolver.WarnAutoDetectMissed(filePath, detected, colFields, extraWarnings.ToArray());
                 }
 
                 int rowCount = worksheet.Dimension.Rows;
